@@ -1735,28 +1735,28 @@
             s_default['z-index'] = 20;
         }
 */
-        if (((selector === 'area' && (tags.hasOwnProperty('building'))) && zoom >= 13)) {
+        if ((selector === 'area') && zoom >= 13) {
             s_default['width'] = 0.3;
             s_default['color'] = '#cca352';
             s_default['z-index'] = 17;
         }
 
-        if (((selector === 'area' && (tags['building'] === '1' || tags['building'] === 'true' || tags['building'] === 'yes')) && zoom >= 15)) {
+        if (((selector === 'area') && zoom >= 15)) {
             s_default['fill-color'] = '#E7CCB4';
             s_default['z-index'] = 17;
         }
 
-        if (((selector === 'area' && tags['building'] === 'public') && zoom >= 15)) {
+        if (((selector === 'area') && zoom >= 15)) {
             s_default['fill-color'] = '#edc2ba';
             s_default['z-index'] = 17;
         }
 
-        if (((selector === 'area' && (tags.hasOwnProperty('building')) && (tags['building '] === '-1' || tags['building '] === 'false' || tags['building '] === 'no') && tags['building'] !== 'public') && zoom >= 15)) {
+        if ((selector === 'area') && zoom >= 15) {
             s_default['fill-color'] = '#D8D1D1';
             s_default['z-index'] = 17;
         }
 
-        if (((selector === 'area' && (tags.hasOwnProperty('building'))) && zoom >= 15 && zoom <= 16)) {
+        if (((selector === 'area') && zoom >= 15 && zoom <= 16)) {
             s_default['text'] = MapCSS.e_localize(tags, 'addr:housenumber');
             s_default['text-halo-radius'] = 1;
             s_default['text-position'] = 'center';
@@ -1765,7 +1765,7 @@
             s_default['opacity'] = 0.8;
         }
 
-        if (((selector === 'area' && (tags.hasOwnProperty('building'))) && zoom >= 17)) {
+        if (((selector === 'area' ) && zoom >= 17)) {
             s_default['text'] = MapCSS.e_localize(tags, 'addr:housenumber');
             s_default['text-halo-radius'] = 1;
             s_default['text-position'] = 'center';
@@ -1999,7 +1999,7 @@
         }
     }, external_images = [], presence_tags = ['shop'], value_tags = ['color', 'amenity', 'pk', 'building ', 'marking', 'service', 'addr:housenumber', 'population', 'leisure', 'waterway', 'aeroway', 'landuse', 'barrier', 'colour', 'railway', 'oneway', 'religion', 'tourism', 'admin_level', 'transport', 'name', 'building', 'place', 'residential', 'highway', 'ele', 'living_street', 'natural', 'boundary', 'capital'];
 
-    MapCSS.loadStyle('osmosnimki', restyle, sprite_images, external_images, presence_tags, value_tags);
-    MapCSS.preloadExternalImages('osmosnimki');
+    MapCSS.loadStyle('architecturestyles', restyle, sprite_images, external_images, presence_tags, value_tags);
+    MapCSS.preloadExternalImages('architecturestyles');
 })(MapCSS);
 

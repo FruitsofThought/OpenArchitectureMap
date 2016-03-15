@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Building Age</title>
+  <link rel="stylesheet" href="js/leaflet.css" />
+  <link rel="stylesheet" href="js/leaflet.locationlist.css" />
+  <link rel="stylesheet" href="js/L.VisualClick.css" />
+  <link rel="stylesheet" href="js/chosen/chosen.css" />
+
+    <!-- 3rd party libraries -->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/leaflet.js"></script>
+    <!-- bog-standard leaflet URL hash -->
+    <script src="lib/leaflet-hash.js"></script>
+    <script src="js/leaflet.locationlist.js"></script>
+    <script src="js/L.VisualClick.js"></script>
+
+    <script src="js/chosen/chosen.jquery.js" type="text/javascript"></script>
+    <!-- Main tangram library -->
+    <script src="js/tangram.debug.js"></script>
+
+    <script src="scenes/startdate.js"></script>
+
+    <!-- Adding a script block to post message to the parent container (think iframed demos) -->
+    <script type="text/javascript">
+      window.addEventListener("hashchange",function(){
+        parent.postMessage(window.location.hash, "*")
+        // Allow user to edit current view in OSM
+                //window.layer.attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a> | <a href="https://mapzen.com/" target="_blank">Edit in OSM</a>'
+      });
+    </script>
+
+  <style>
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0;}
+
+  #map {
+    height:   100%;
+    width:    100%;
+    position: absolute;
+  }
+  #legend {
+    z-index: 10000;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+    color: #000;
+  }
+  #legend a {
+    color: #000;
+  }
+  .leaflet-control-locationlist-arrow-next { 
+    background-image: url('images/icon-next.png');
+  }
+  .leaflet-control-locationlist-arrow-prev { 
+   background-image: url('images/icon-prev.png');
+  }
+  </style>
+</head>
+<body>
+  <div id="map"><div id="legend"></div></div>
+  
+    <script>
+      var map = L.map('map',{
+        visualClickEvents: 'click contextmenu' //can be multiple space-seperated events, like 'click', 'contextmenu', 'dblclick'...
+      });
+      var layer = Tangram.leafletLayer({
+        scene: 'scenes/startdate.yaml',
+        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="http://www.openstreetmap.org/about" target="_blank">&copy; OSM contributors | <a href="https://tilesmountbatten.nl/" target="_blank">Mountbatten</a>',
+      });
+      layer.addTo(map);
+//      map.setView([-6.1653329612873105, 39.19835239648819, 15], 16) // Stone Town
+// 14/51.9176/4.5066 Rotterdam
+      map_start_location = [52.3697, 4.9044, 15, 16] // Amsterdam
+
+    // leaflet-style URL hash pattern:
+    // #[zoom],[lat],[lng]
+    var url_hash = window.location.hash.slice(1, window.location.hash.length).split('/');
+
+    if (url_hash.length == 3) {
+        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
+        // convert from strings
+  //      map_start_location = map_start_location.map(Number);
+    }
+
+
+  var locations = {"locationsList": [
+  {"title": "Amsterdam" , latlng: [ 52.3697,4.9044 ], zoom: 14 }, 
+  {"title": "Maastricht", latlng: [ 50.8461,5.6945 ], zoom: 14 }, 
+  {"title": "Utrecht" , latlng: [ 52.0882,5.1233 ], zoom: 14 },
+  {"title": "Rotterdam" , latlng: [ 51.9176,4.5066 ], zoom: 14 },  
+  {"title": "Groningen" , latlng: [ 53.2185,6.5662 ], zoom: 14 },  
+  {"title": "Terschelling" , latlng: [ 53.3636,5.2276 ], zoom: 15 },  
+  {"title": "Ngambo" , latlng: [ -6.1653329612873105, 39.19835239648819 ], zoom: 14 }
+  ]
+};
+
+    var llist = new L.control.locationlist(locations);
+    map.addControl(llist);
+  //  $(".leaflet-control-locationlist-list").chosen({disable_search_threshold: 10});
+    
+    
+    // setView expects format ([lat, long], zoom)
+    map.setView(map_start_location.slice(0, 3), map_start_location[2]);
+    var hash = new L.Hash(map);
+
+
+    var startdates = getStartDateArray();
+    var years = Object.keys(startdates);
+    for (year of years) {
+      $('#legend').append('<a style=\"background-color: ' + startdates[year] + ';display: block;\">' + year + '</a>');
+    }
+    </script>
+</body>
+</html>

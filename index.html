@@ -1,72 +1,226 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-	<head>
-		<title>Open Architecture Map</title>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="content-language" content="en" />
-		<meta name="keywords" content="openstreetmap, openrailwaymap, alexander matheisen, rurseekatze, openlayers, osm, matheisen, orm, eisenbahnkarte, bahnkarte, railmap, railway, railways, eisenbahn, streckenkarte" />
-		<meta name="title" content="OpenRailwayMap" />
-		<meta name="author" content="rurseekatze, Alexander Matheisen" />
-		<meta name="publisher" content="rurseekatze, Alexander Matheisen" />
-		<meta name="copyright" content="GNU General Public License v3" />
-		<meta name="revisit-after" content="after 90 days" />
-		<meta name="date" content="2010-01-01" />
-		<meta name="page-topic" content="OpenRailwayMap" />
-		<meta name="robots" content="index,follow" />
-		<link rel="alternate" type="application/rss+xml" title="OpenRailwayMap RSS Feed" href="http://www.matheisen.org/en/orm.rss" />
-		<link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
-		<link rel="icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
-		<meta http-equiv="content-script-type" content="text/javascript" />
-		<meta http-equiv="content-style-type" content="text/css" />
-		<link rel="stylesheet" type="text/css" href="css/map.css" />
-		<link rel="stylesheet" href="js/leaflet/leaflet.css" />
-		
-		
-    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
-		<script type="text/javascript" src="js/leaflet/leaflet-src.js"></script>
-    <script type="text/javascript" src="js/kothic/kothic.js"></script>
-    <script type="text/javascript" src="mapstyles/architecturestyles.js"></script> 
-<!-- <script type="text/javascript" src="mapstyles/osmosnimki.js"></script> 
-    <script type="text/javascript" src="mapstyles/freemap.js"></script>-->
-   <script type="text/javascript" src="js/kothic/kothic-leaflet.js"></script>
-    <script type="text/javascript" src="js/Leaflet.MapboxVectorTile.js"></script>
+<!DOCTYPE html>
+<html class=" js" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# " lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<script src="index_files/piwik.js" async="" defer="defer" type="text/javascript"></script><script>var _paq = _paq || [];(function(){var u=(("https:" == document.location.protocol) ? "" : "http://piwik.mountbatten.net/");_paq.push(["setSiteId", "33"]);_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setDoNotTrack", 1]);_paq.push(["trackPageView"]);_paq.push(["setIgnoreClasses", ["no-tracking","colorbox"]]);_paq.push(["enableLinkTracking"]);var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];g.type="text/javascript";g.defer=true;g.async=true;g.src=u+"piwik.js";s.parentNode.insertBefore(g,s);})();</script>
+<meta name="Generator" content="Drupal 8 (https://www.drupal.org)">
+<meta name="MobileOptimized" content="width">
+<meta name="HandheldFriendly" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="http://web.mountbatten.nl/sites/default/files/favicon_mountbatten.ico" type="image/vnd.microsoft.icon">
+<link rel="canonical" href="http://web.mountbatten.nl/node/1">
+<link rel="shortlink" href="http://web.mountbatten.nl/node/1">
+<link rel="delete-form" href="http://web.mountbatten.nl/node/1/delete">
+<link rel="edit-form" href="http://web.mountbatten.nl/node/1/edit">
+<link rel="version-history" href="http://web.mountbatten.nl/node/1/revisions">
+<link rel="revision" href="http://web.mountbatten.nl/node/1">
+<link rel="devel-render" href="http://web.mountbatten.nl/devel/node/1/render">
+<link rel="devel-load" href="http://web.mountbatten.nl/devel/node/1">
+
+    <title>Mountbatten Maps</title>
+    <link rel="stylesheet" href="index_files/css_TQZ8_DVgEYiTHL6CgFkiEVGJVlaEEEH47veR57bERUY.css" media="all">
+<link rel="stylesheet" href="index_files/font-awesome.css" media="all">
+<link rel="stylesheet" href="index_files/css_xIRTrKtedcEE_qLlBFboIBPbY9wPVC1l2rj0webVTt0.css" media="all">
+<link rel="stylesheet" href="index_files/bootstrap.css" media="all">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" media="all">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" media="all">
+
     
+<!--[if lte IE 8]>
+<script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
+<![endif]-->
+
+  </head>
+  <body class="path-frontpage page-node-type-page">
+    <a href="#main-content" class="visually-hidden focusable skip-link">
+      Skip to main content
+    </a>
     
-		<script type="text/javascript" src="js/L.TileLayer.Grayscale.js"></script>
-<!--<script type="text/javascript" src="/kothic-js-mapcss/styles/mapnik.js"></script> -->
-		<script type="text/javascript">
-var params={
-id : null,
-type : null,
-lat : null,
-lon : null,
-zoom : null,
-offset : null,
-searchquery : '',
-lang : 'en',
-ref : null,
-name : null,
-position : null,
-line : null,
-operator : null,
-style : null,
-mobile : null
-};
-</script>
-		<!--<script type="text/javascript" src="api/jstranslations.php?lang=en"></script>
-		<script type="text/javascript" src="js/search.js"></script> -->
-                <script type="text/javascript" src="js/translations.js"></script>
-		<script type="text/javascript" src="js/startposition.js"></script>
-		<script type="text/javascript" src="js/timestamp.js"></script>
-		<script type="text/javascript" src="js/functions.js"></script>
-		<script type="text/javascript" src="js/bitmap-map.js"></script>
-	</head>
-	<body onload="createMap(false);">
-		<div id="locateButton"></div>
-		<div id="mapFrame">
-			<noscript>
-				<p><b>Javascript is not activated</b><br />Javascript is needed to show the map and run this website. Please turn on Javascript in your browser settings.</p>
-			</noscript>
-		</div>
-	</body>
-</html>
+              <header class="navbar navbar-default container-fluid" id="navbar" role="banner">
+      <div class="navbar-header">
+          <div class="region region-navigation">
+          <a class="logo navbar-btn pull-left" href="http://web.mountbatten.nl/" title="Home" rel="home">
+      <img src="index_files/logo-dualtone_M_Square.gif" alt="Home">
+    </a>
+      
+  </div>
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+                    <div class="navbar-collapse collapse">
+            <div class="region region-navigation-collapsible">
+    <nav role="navigation" aria-labelledby="block-bootstrap-main-menu-menu" id="block-bootstrap-main-menu" class="contextual-region">
+      
+              <ul class="menu nav navbar-nav">
+        </ul>
+  
+
+
+  </nav>
+<nav role="navigation" aria-labelledby="block-bootstrap-account-menu-menu" id="block-bootstrap-account-menu" class="contextual-region">
+      
+              <ul class="menu nav navbar-nav navbar-right">
+        </ul>
+  
+
+
+  </nav>
+
+  </div>
+
+        </div>
+          </header>
+  
+  <div role="main" class="main-container container-fluid js-quickedit-main-content">
+    <div class="row">
+
+                              <div class="col-sm-12" role="heading">
+              <div class="region region-header">
+    
+    <h1 class="js-quickedit-page-title page-header"><span property="schema:name" data-quickedit-field-id="node/1/title/en/full">Mountbatten Maps</span>
+</h1>
+
+
+  </div>
+
+          </div>
+              
+            
+                  <section class="col-sm-12">
+
+                
+                
+                
+                                      
+                  
+                          <a id="main-content"></a>
+            <div class="region region-content">
+      <article data-history-node-id="1" data-quickedit-entity-id="node/1" role="article" class="contextual-region" about="/node/1" typeof="schema:WebPage">
+
+  
+    <div data-contextual-id="node:node=1:changed=1454494119&amp;langcode=en"></div>  <span property="schema:name" content="About" class="hidden"></span>
+
+
+  
+  <div>
+    
+            <div property="schema:text" data-quickedit-field-id="node/1/body/en/full" class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>
+From here you can explore a few mapping experiments. Some will develop into proper maps. If I invited you to this page, I did that because I really appreciate feedback.
+</p>
+<ul>
+<li> <a href="leafletvectortile/">Simple map showing modernist houses in Ng'ambo</a>. Built with the <a href="https://github.com/SpatialServer/Leaflet.MapboxVectorTile">Leaflet.MapboxVectorTile.js</a>> layer built by <a href="http://www.spatialdev.com">SpatialDev</a>. Great job guys. Thanks for everything.</li>
+<li><a href="mapbox/">Standard sample of vectortiles</a> completely copied from the Mapzen samples. Uses the <a href="http://www.mapbox.com">MapBox</a> javascript library.</li>
+<li><a href="mapzen/">Full blown map of building age of all buildings in The Netherlands</a>. There are 10M buildings in The Netherlands. Based on <a href="https://mapzen.com/projects/tangram">Mapzen's Tangram</a> library. </li>
+</ul>
+
+
+<div>
+
+This is very much work in progress so follow me on Twitter or let's have a beer so I can tell you where this is heading.
+</div>
+
+</div>
+      
+  </div>
+
+</article>
+
+
+  </div>
+
+              </section>
+
+                </div>
+  </div>
+
+      <footer class="footer container-fluid" role="contentinfo">
+        <div class="region region-footer">
+    <section id="block-socialmedialinks" class="contextual-region block-social-media-links block clearfix">
+  
+    <div data-contextual-id="block:block=socialmedialinks:langcode=en"></div>
+
+      
+
+<ul class="platforms inline horizontal">
+            <li>
+            <a href="http://www.linkedin.com/in/reinier-battenberg-567a7b7">
+                <span class="fa fa-linkedin fa-2x"></span>
+            </a>
+
+                                                <br>
+                
+                <span><a href="http://www.linkedin.com/in/reinier-battenberg-567a7b7">LinkedIn</a></span>
+                    </li>
+<!--            <li>
+            <a href="https://www.drupal.org/u/batje">
+                <span class="fa fa-drupal fa-2x"></span>
+            </a>
+
+                                                <br>
+                
+                <span><a href="https://www.drupal.org/u/batje">Drupal</a></span>
+                    </li>
+            <li>
+            <a href="http://web.mountbatten.nl/contact">
+                <span class="fa fa-envelope fa-2x"></span>
+            </a>
+
+                                                <br>
+                
+                <span><a href="http://web.mountbatten.nl/contact">Contact</a></span>
+                    </li>
+    -->        <li>
+            <a href="mailto:info@mountbatten.nl">
+                <span class="fa fa-envelope fa-2x"></span>
+            </a>
+
+                                                <br>
+                
+                <span><a href="mailto:info@mountbatten.nl">E-Mail</a></span>
+                    </li>
+            <li>
+            <a href="https://www.twitter.com/batje">
+                <span class="fa fa-twitter fa-2x"></span>
+            </a>
+
+                                                <br>
+                
+                <span><a href="https://www.twitter.com/batje">Twitter</a></span>
+                    </li>
+    </ul>
+
+  </section>
+
+<section data-quickedit-entity-id="block_content/1" id="block-address" class="contextual-region block clearfix">
+  
+    <div data-contextual-id="block:block=address:langcode=en|block_content:block_content=1:changed=1454486708&amp;langcode=en"></div>
+
+      
+            <div data-quickedit-field-id="block_content/1/body/en/full" class="field field--name-body field--type-text-with-summary field--label-hidden field--item"><p>Riddergaard 8</p>
+
+<p>6227 GA Maastricht</p>
+
+<p>The Netherlands</p></div>
+      
+  </section>
+
+
+  </div>
+
+    </footer>
+  
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","scriptPath":null,"pathPrefix":"","currentPath":"node\/1","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","piwik":{"trackMailto":true},"bootstrap":{"forms_has_error_value_toggle":1,"modal_animation":1,"modal_backdrop":"true","modal_keyboard":1,"modal_show":1,"modal_size":"","popover_animation":1,"popover_container":"body","popover_content":"","popover_delay":"0","popover_html":0,"popover_placement":"right","popover_selector":"","popover_title":"","popover_trigger":{"click":"click","hover":0,"focus":0,"manual":0},"popover_trigger_autoclose":1,"tooltip_animation":1,"tooltip_container":"body","tooltip_delay":"0","tooltip_html":0,"tooltip_placement":"auto left","tooltip_selector":"","tooltip_trigger":{"hover":"hover","focus":"focus","click":0,"manual":0},"tooltip_trigger_autoclose":1},"statistics":{"data":{"nid":"1"},"url":"\/core\/modules\/statistics\/statistics.php"},"user":{"uid":0,"permissionsHash":"e8efab2afb7aac87cff5c5be6dee9a2a3d1199e8d44f3e20696bbae7bca3fbf6"}}</script>
+<script src="index_files/js_ehLb2BCZL8tQX2pYsCo_Lxrbw9e10QbCHRXITXosJbw.js"></script>
+<script src="index_files/bootstrap.js"></script>
+<script src="index_files/js_1qVJumLcQcB_pP6lje52b3uXp95rBVwLEbVe7LeGzgM.js"></script>
+
+  
+
+</body></html>

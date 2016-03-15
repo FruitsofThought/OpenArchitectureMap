@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Open Architecture Map</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="content-language" content="en" />
+		<meta name="keywords" content="openstreetmap, openrailwaymap, alexander matheisen, rurseekatze, openlayers, osm, matheisen, orm, eisenbahnkarte, bahnkarte, railmap, railway, railways, eisenbahn, streckenkarte" />
+		<meta name="title" content="OpenRailwayMap" />
+		<meta name="author" content="rurseekatze, Alexander Matheisen" />
+		<meta name="publisher" content="rurseekatze, Alexander Matheisen" />
+		<meta name="copyright" content="GNU General Public License v3" />
+		<meta name="revisit-after" content="after 90 days" />
+		<meta name="date" content="2010-01-01" />
+		<meta name="page-topic" content="OpenRailwayMap" />
+		<meta name="robots" content="index,follow" />
+		<link rel="alternate" type="application/rss+xml" title="OpenRailwayMap RSS Feed" href="http://www.matheisen.org/en/orm.rss" />
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+		<link rel="icon" href="img/favicon.ico" type="image/vnd.microsoft.icon" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/map.css" />
+		<link rel="stylesheet" href="js/leaflet/leaflet.css" />
+		
+		
+    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+		<script type="text/javascript" src="js/leaflet/leaflet-src.js"></script>
+    <script type="text/javascript" src="js/kothic/kothic.js"></script>
+    <script type="text/javascript" src="mapstyles/architecturestyles.js"></script> 
+<!-- <script type="text/javascript" src="mapstyles/osmosnimki.js"></script> 
+    <script type="text/javascript" src="mapstyles/freemap.js"></script>-->
+   <script type="text/javascript" src="js/kothic/kothic-leaflet.js"></script>
+    <script type="text/javascript" src="js/Leaflet.MapboxVectorTile.js"></script>
+    
+    
+		<script type="text/javascript" src="js/L.TileLayer.Grayscale.js"></script>
+<!--<script type="text/javascript" src="/kothic-js-mapcss/styles/mapnik.js"></script> -->
+		<script type="text/javascript">
+var params={
+id : null,
+type : null,
+lat : null,
+lon : null,
+zoom : null,
+offset : null,
+searchquery : '',
+lang : 'en',
+ref : null,
+name : null,
+position : null,
+line : null,
+operator : null,
+style : null,
+mobile : null
+};
+</script>
+		<!--<script type="text/javascript" src="api/jstranslations.php?lang=en"></script>
+		<script type="text/javascript" src="js/search.js"></script> -->
+                <script type="text/javascript" src="js/translations.js"></script>
+		<script type="text/javascript" src="js/startposition.js"></script>
+		<script type="text/javascript" src="js/timestamp.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/bitmap-map.js"></script>
+	</head>
+	<body onload="createMap(false);">
+		<div id="locateButton"></div>
+		<div id="mapFrame">
+			<noscript>
+				<p><b>Javascript is not activated</b><br />Javascript is needed to show the map and run this website. Please turn on Javascript in your browser settings.</p>
+			</noscript>
+		</div>
+	</body>
+</html>

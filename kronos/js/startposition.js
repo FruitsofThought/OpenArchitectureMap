@@ -53,7 +53,7 @@ function Startposition(map)
 				// position to zoom on if no permalink is given and geolocation isn't supported
 				var lat = -6.1653329612873105;
 				var lon = 39.19835239648819;
-				var zoom = 19;
+				var zoom = 18;
 				this.map.setView(new L.LatLng(lat, lon), zoom);
 
 		this.setPositionByIp();

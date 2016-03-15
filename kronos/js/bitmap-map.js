@@ -12,7 +12,7 @@ function createMap(embed)
 	root = "http://localhost/kothic-js/dist/";
 	loading = "<img class='loading' src='"+root+"/img/loading.gif'><br>"+translations['loading'];
 	// path to the bitmap tile directory
-	tiledir = "http://tiles.mountbatten.nl/";
+	tiledir = "http://tz.tiles.mountbatten.nl:83/";
 	// available map rendering styles
 	availableStyles = new Array("buildings", "architecture", "all");
         defaultStyle = "architecture";
@@ -36,12 +36,12 @@ function createMap(embed)
 	}
 
 	// grayscale mapnik background layer
-	var mapnikGray = new L.TileLayer.Grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+/*	var mapnikGray = new L.TileLayer.Grayscale('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 	{
 		attribution: translations['mapnikAttribution'],
 		maxZoom: 19
 	}).addTo(map);
-/*	// normal mapnik background layer
+*//*	// normal mapnik background layer
 	var mapnik = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 	{
 		attribution: translations['mapnikAttribution'],
@@ -180,7 +180,7 @@ function createMap(embed)
 
 	var baseLayers = new Object();
 //	baseLayers[translations['mapnik']] = mapnik;
-	baseLayers[translations['mapnikGrayscale']] = mapnikGray;
+//	baseLayers[translations['mapnikGrayscale']] = mapnikGray;
 //	baseLayers[translations['mapquest']] = mapquest;
 //	baseLayers[translations['mapquestGrayscale']] = mapquestGray;
 	baseLayers[translations['blank']] = blank;
