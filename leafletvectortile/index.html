@@ -20,18 +20,23 @@
 		<meta http-equiv="content-style-type" content="text/css" />
 		<link rel="stylesheet" type="text/css" href="css/map.css" />
 		<link rel="stylesheet" href="js/leaflet/leaflet.css" />
-  <script src="/index_files/piwik.js" async="" defer="defer" type="text/javascript"></script>
-  <script>
-    var _paq = _paq || [];(function(){var u=(("https:" == document.location.protocol) ? "" : "http://piwik.mountbatten.net/");_paq.push(["setSiteId", "35"]);_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setDoNotTrack", 1]);_paq.push(["trackPageView"]);_paq.push(["setIgnoreClasses", ["no-tracking","colorbox"]]);
-    _paq.push(["enableLinkTracking"]);
-    var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];
-    g.type="text/javascript";
-    g.defer=true;
-    g.async=true;
-    g.src=u+"piwik.js";
-    s.parentNode.insertBefore(g,s);
-    })();
-  </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.maps.mountbatten.nl"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.mountbatten.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 35]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.mountbatten.net/piwik.php?idsite=35" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
 		
 		
     <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>

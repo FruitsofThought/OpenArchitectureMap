@@ -1,0 +1,12 @@
+
+
+- take the legend plugn
+
+add to the json:
+
+  field raw name (key)
+  field displayname (language as key?)
+  wiki documentation
+  OSM documentation
+  wikidata item
+  link label or field to someting? (with a placeholder?) eg: wikipedia field.

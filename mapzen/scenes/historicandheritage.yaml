@@ -23,7 +23,7 @@ textures:
             wikipedia: [0, 0, 16, 16]
 
 styles:
-    buildingsthreed:
+    buildings:
         base: polygons
         shaders:
             blocks:
@@ -35,13 +35,18 @@ styles:
         interactive: true
         blend: overlay
         blend_order: 3
+    heritageareas:
+        base: polygons
+        interactive: true
+        blend: overlay
+        blend_order: 10
+        
 
 sources:
     mapzen:
-        type: MVT
-        #url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.mvt
-        url:  http://nl.tiles.mountbatten.nl/all/{z}/{x}/{y}.mvt
-        scripts: ['http://maps.mountbatten.nl/mapzen/scenes/startdate.js']
+        type: TopoJSON
+        url:  //nl.tiles.mountbatten.nl:83/all/{z}/{x}/{y}.topojson
+        sffsdurl:  //tz.tiles.mountbatten.nl:83/all/{z}/{x}/{y}.topojson
 
 layers:
     earth:
@@ -73,44 +78,60 @@ layers:
                 order: 2
                 color: '#777'
                 width: 5
+    
+    heritage:
+        data: { source: mapzen }
+
+        global:
+            filter: { $zoom: { max: 11 } }
+            draw:
+                points:
+                    size: 32px
+                    order: 1
+                    color: [.2, 1, 0, .06]
+        national:
+            filter: { $zoom: { min: 11 } }
+            draw:
+                heritageareas:
+                    order: 1
+                    color: [.2, 1, 0, .08]
 
         labels:
             filter:
                 name: true
-                aeroway: false
-                tunnel: false
-                railway: false
-                not: { kind: rail }
-
+                $zoom: { min: 15 } 
             draw:
                 text:
                     font:
                         fill: white
                         family: Helvetica
-                        size: 11px
+                        size: 12px
 
-            highway:
-                filter: { kind: highway }
+            historic:
+                filter :
+                    historic: true 
                 draw:
                     text:
                         font:
-                            size: 12px
-                            weight: bold
-
-    buildings:
-        data: { source: mapzen , layer: architecture}
-        startdate:
-        filter: {$zoom: { min: 13 } }
-        draw:
-            polygons:
-                order: 50
-                color: function () { return startdatecolor(feature);}
-                interactive: true
+                            fill: red
+                            family: Helvetica
+                            size: 14px
+            wikipedia:
+                filter :
+                    wikipedia: true 
+                draw:
+                    text:
+                        font:
+                            fill: blue
+                            family: Helvetica
+                            size: 14px
         wikiicon:
             filter :
                 wikipedia: true 
+                $zoom: { min: 15 } 
             draw:
                 ui-icons-overlay:
                     size: 16px
                     visible: true
                     sprite: wikipedia
+  

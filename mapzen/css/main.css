@@ -1,0 +1,53 @@
+  html { height: 100% }
+  body { height: 100%; margin: 0; padding: 0;}
+
+  #map {
+    height:   100%;
+    width:    100%;
+    position: absolute;
+  }
+  #legend {
+    z-index: 10000;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+    color: #000;
+  }
+  #legend a {
+    color: #000;
+    width: 200px;
+    line-height: 15px;
+  }
+  .leaflet-control-locationlist-arrow-next { 
+    background-image: url('images/icon-next.png');
+  }
+  .leaflet-control-locationlist-arrow-prev { 
+   background-image: url('images/icon-prev.png');
+  }
+  
+  .sidebar-content {
+    display: block;
+  }
+  #wikipediapane.sidebar-pane {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  #wikipediapane.sidebar-pane h1{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #wikipediapane.sidebar-pane.active {
+    display: block;
+    height: 100%;
+    overflow: none;  
+  }
+  #wikipediapane.sidebar-pane.active div {
+    height: 95%;
+  }
+  
+  #wikipedia {
+  width: 100%;
+  height: 100%;
+  
+    border: none;
+  }

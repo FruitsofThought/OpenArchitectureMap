@@ -14,6 +14,15 @@ lights:
         diffuse: .7
         ambient: .5
 
+textures:
+    icons:
+        url: images/wikipedia.png
+        filtering: mipmap
+        sprites:
+            # define sprites: [x origin, y origin, width, height]
+            wikipedia: [0, 0, 16, 16]
+
+
 styles:
     buildings:
         base: polygons
@@ -21,11 +30,17 @@ styles:
             blocks:
                 color: |
                     color.rgb *= vec3(min((worldPosition().z*.001 + .5),1.));
+    ui-icons-overlay:
+        base: points
+        texture: icons
+        interactive: true
+        blend: overlay
+        blend_order: 3
 
 sources:
     mapzen:
-        type: MVT
-        url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.mvt
+        type: TopoJSON
+        url:  http://tz.tiles.mountbatten.nl:83/all/{z}/{x}/{y}.topojson
 
 layers:
     earth:
@@ -83,8 +98,14 @@ layers:
 
     buildings:
         data: { source: mapzen , layer: architecture}
-        archstyles:
-        filter: {$zoom: { min: 14 } }
+        wikiicon:
+            filter :
+                wikipedia: true 
+            draw:
+                ui-icons-overlay:
+                    size: 16px
+                    visible: true
+                    sprite: wikipedia
         stone_town:
             filter: {"architecture_style": "stone_town" }
             draw:
@@ -94,7 +115,7 @@ layers:
             filter: {"architecture_style": "first_swahili" }
             draw:
                 polygons:
-                    color:#[0.906, 0.357, 0.227]
+                    color: [0.906, 0.357, 0.227]
         classic_swahili:
             filter: {"architecture_style": "classic_swahili" }
             draw:

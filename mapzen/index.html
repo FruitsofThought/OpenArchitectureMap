@@ -2,36 +2,51 @@
 <html>
 <head>
   <title>Building Age</title>
+  <link rel="shortcut icon" href="http://web.mountbatten.nl/sites/default/files/favicon_mountbatten.ico" type="image/vnd.microsoft.icon">
+  <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="js/leaflet.css" />
   <link rel="stylesheet" href="js/leaflet.locationlist.css" />
   <link rel="stylesheet" href="js/L.VisualClick.css" />
+  <link rel="stylesheet" href="css/leaflet-sidebar.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="js/chosen/chosen.css" />
-  <script src="/index_files/piwik.js" async="" defer="defer" type="text/javascript"></script>
-  <script>
-    var _paq = _paq || [];(function(){var u=(("https:" == document.location.protocol) ? "" : "http://piwik.mountbatten.net/");_paq.push(["setSiteId", "35"]);_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setDoNotTrack", 1]);_paq.push(["trackPageView"]);_paq.push(["setIgnoreClasses", ["no-tracking","colorbox"]]);
-    _paq.push(["enableLinkTracking"]);
-    var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];
-    g.type="text/javascript";
-    g.defer=true;
-    g.async=true;
-    g.src=u+"piwik.js";
-    s.parentNode.insertBefore(g,s);
-    })();
-  </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.maps.mountbatten.nl"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.mountbatten.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 35]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.mountbatten.net/piwik.php?idsite=35" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
 
     <!-- 3rd party libraries -->
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="js/leaflet.js"></script>
+    <script src="js/leaflet-src.js"></script>
     <!-- bog-standard leaflet URL hash -->
     <script src="lib/leaflet-hash.js"></script>
     <script src="js/leaflet.locationlist.js"></script>
     <script src="js/L.VisualClick.js"></script>
+    <script src="js/leaflet-sidebar.js"></script>
 
     <script src="js/chosen/chosen.jquery.js" type="text/javascript"></script>
+    <!-- Keymaster handles keyboard input -->
+    <script src="lib/keymaster.js"></script>
+    <!-- taken from the tangram demo page https://tangrams.github.io/carousel/switcher.js
+         Adapted to appear in the sidebar -->
+    <script src="js/switcher.js" type="text/javascript"></script>
     <!-- Main tangram library -->
-    <script src="js/tangram.debug.js"></script>
-
+    <script src="js/tangram.min.js"></script>
+    <!-- this is so the legend can load -->
     <script src="scenes/startdate.js"></script>
+
 
     <!-- Adding a script block to post message to the parent container (think iframed demos) -->
     <script type="text/javascript">
@@ -41,87 +56,70 @@
                 //window.layer.attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a> | <a href="https://mapzen.com/" target="_blank">Edit in OSM</a>'
       });
     </script>
-
-  <style>
-  html { height: 100% }
-  body { height: 100%; margin: 0; padding: 0;}
-
-  #map {
-    height:   100%;
-    width:    100%;
-    position: absolute;
-  }
-  #legend {
-    z-index: 10000;
-    left: 0px;
-    bottom: 0px;
-    position: absolute;
-    color: #000;
-  }
-  #legend a {
-    color: #000;
-  }
-  .leaflet-control-locationlist-arrow-next { 
-    background-image: url('images/icon-next.png');
-  }
-  .leaflet-control-locationlist-arrow-prev { 
-   background-image: url('images/icon-prev.png');
-  }
-  </style>
+  <!-- All is loaded from here -->
+<!--  <script src="js/main.js"></script>-->
 </head>
 <body>
-  <div id="map"><div id="legend"></div></div>
-  
-    <script>
-      var map = L.map('map',{
-        visualClickEvents: 'click contextmenu' //can be multiple space-seperated events, like 'click', 'contextmenu', 'dblclick'...
-      });
-      var layer = Tangram.leafletLayer({
-        scene: 'scenes/startdate.yaml',
-        attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="http://www.openstreetmap.org/about" target="_blank">&copy; OSM contributors | <a href="https://tilesmountbatten.nl/" target="_blank">Mountbatten</a>',
-      });
-      layer.addTo(map);
-//      map.setView([-6.1653329612873105, 39.19835239648819, 15], 16) // Stone Town
-// 14/51.9176/4.5066 Rotterdam
-      map_start_location = [52.3697, 4.9044, 15, 16] // Amsterdam
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#homepane" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#legendpane" role="tab"><i class="fa fa-map"></i></a></li>
+                <!-- try fa-exchange fa-filter fa-sliders -->
+                <li><a href="#sceneswitcherpane" role="tab"><i class="fa fa-filter"></i></a></li>
+                <li><a href="#infopane" role="tab"><i class="fa fa-info"></i></a></li>
+                <li><a href="#wikipediapane" role="tab"><i class="fa fa-wikipedia-w"></i></a></li>
+                <li class="disabled"><a href="#imagespane" role="tab"><i class="fa fa-file-image-o"></i></a></li>
+            </ul>
 
-    // leaflet-style URL hash pattern:
-    // #[zoom],[lat],[lng]
-    var url_hash = window.location.hash.slice(1, window.location.hash.length).split('/');
+            <ul role="tablist">
+                <li><a href="#settingspane" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
 
-    if (url_hash.length == 3) {
-        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
-        // convert from strings
-  //      map_start_location = map_start_location.map(Number);
-    }
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="homepane">
+                <h1 class="sidebar-header">
+                    Info
+                    <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+                </h1>
+                <div id="home">This shows a lot of OpenStreetMap data that you normally do not see.</div>
+            </div>
 
+            <div class="sidebar-pane" id="sceneswitcherpane">
+                <h1 class="sidebar-header">Scene Switcher<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+                <div id="sceneswitcher"></div>
+            </div>
 
-  var locations = {"locationsList": [
-  {"title": "Amsterdam" , latlng: [ 52.3697,4.9044 ], zoom: 14 }, 
-  {"title": "Maastricht", latlng: [ 50.8461,5.6945 ], zoom: 14 }, 
-  {"title": "Utrecht" , latlng: [ 52.0882,5.1233 ], zoom: 14 },
-  {"title": "Rotterdam" , latlng: [ 51.9176,4.5066 ], zoom: 14 },  
-  {"title": "Groningen" , latlng: [ 53.2185,6.5662 ], zoom: 14 },  
-  {"title": "Terschelling" , latlng: [ 53.3636,5.2276 ], zoom: 15 },  
-  {"title": "Ngambo" , latlng: [ -6.1653329612873105, 39.19835239648819 ], zoom: 14 }
-  ]
-};
+            <div class="sidebar-pane" id="legendpane">
+                <h1 class="sidebar-header">Legend<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+                <div id="legend"></div>
+            </div>
 
-    var llist = new L.control.locationlist(locations);
-    map.addControl(llist);
-  //  $(".leaflet-control-locationlist-list").chosen({disable_search_threshold: 10});
-    
-    
-    // setView expects format ([lat, long], zoom)
-    map.setView(map_start_location.slice(0, 3), map_start_location[2]);
-    var hash = new L.Hash(map);
+            <div class="sidebar-pane" id="infopane">
+                <h1 class="sidebar-header">Info<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+                <div id="info"></div>
+            </div>
 
+            <div class="sidebar-pane" id="wikipediapane">
+                <h1 class="sidebar-header">Wikipedia<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+                <div><iframe id="wikipedia"></iframe></div>
+            </div>
 
-    var startdates = getStartDateArray();
-    var years = Object.keys(startdates);
-    for (year of years) {
-      $('#legend').append('<a style=\"background-color: ' + startdates[year] + ';display: block;\">' + year + '</a>');
-    }
-    </script>
+            <div class="sidebar-pane" id="imagespane">
+                <h1 class="sidebar-header">Images<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="settingspane">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+            </div>
+        </div>
+    </div>
+  <!-- The leaflet map -->
+  <div id="map" class="sidebar-map"></div>
+  <!-- All is loaded from here -->
+  <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
