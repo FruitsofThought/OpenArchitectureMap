@@ -7,52 +7,16 @@ map = (function() {
   var map = L.map('map', {
     visualClickEvents: 'click contextmenu' //can be multiple space-seperated events, like 'click', 'contextmenu', 'dblclick'...
   });
+  
+  // Sidebar Control
+  var sidebar = L.control.sidebar('sidebar', {
+    position: 'right'
+  }).addTo(map);
 
-  var styles = {
-    "buildingage": {
-      "group": "Architecture",
-      "name": "Building Age",
-      "file": "scenes/startdate.yaml",
-      "legendfunction": "startdates_legend", //returns a legend as html
-    },
-    "architecturalstyles": {
-      "group": "Architecture",
-      "name": "Architectural Styles",
-      "file": "scenes/architecturalstyles.yaml",
-    },
-    "historicandheritage": {
-     "group": "Work In Progress",
-     "name": "Heritage & Historical",
-     "file": "scenes/historicandheritage.yaml",
-    },
-    "cinnabar": {
-      "group": "Mapzen Demos",
-      "name": "Cinnabar",
-      "file": "//cdn.rawgit.com/tangrams/cinnabar-style/70b3d2d9ca70346ad626b4337aa676735e1ba71b/cinnabar-style.yaml",
-    },
-    "crosshatch": {
-      "group": "Mapzen Demos",
-      "name": "Crosshatch",
-      "file": "//cdn.rawgit.com/tangrams/tangram-sandbox/5b6963f1efce4ba153b55294db26cf2d8caec77d/styles/crosshatch.yaml",
-    },
-    "tron": {
-      "name": "Tron",
-      "group": "Mapzen Demos",
-      "file": "//cdn.rawgit.com/tangrams/tangram-sandbox/a5d9eb117a4b5a220cb23c02a79ef7d002caf071/styles/tron.yaml",
-    },
-    "refill": {
-      "name": "Refill",
-      "group": "Mapzen Demos",
-      "file": "//cdn.rawgit.com/tangrams/refill-style/6e720243dfc93f2aa49d490e0676699edfe4aad7/refill-style.yaml",
-    },
-  };
-
-    // Sidebar Control
   var switcher = L.control.sceneswitcher('sceneswitcher', {
     styles: styles,
     currentStyle: "buildingage",
   }).addTo(map);
-  
   //TODO: build: getscurrentScene;
   var initialstyle = switcher.getCurrentStyle();
   var layer = Tangram.leafletLayer({
@@ -62,41 +26,6 @@ map = (function() {
     attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="http://www.openstreetmap.org/about" target="_blank">&copy; OSM contributors | <a href="https://tilesmountbatten.nl/" target="_blank">Mountbatten</a>',
   });
   //      layer.addTo(map);
-
-  var locations = {
-    "locationsList": [{
-      "title": "Amsterdam",
-      latlng: [52.3697, 4.9044],
-      zoom: 14
-    }, {
-      "title": "Maastricht",
-      latlng: [50.8461, 5.6945],
-      zoom: 14
-    }, {
-      "title": "Utrecht",
-      latlng: [52.0882, 5.1233],
-      zoom: 14
-    }, {
-      "title": "Rotterdam",
-      latlng: [51.9176, 4.5066],
-      zoom: 14
-    }, {
-      "title": "Groningen",
-      latlng: [53.2185, 6.5662],
-      zoom: 14
-    }, {
-      "title": "Terschelling",
-      latlng: [53.3636, 5.2276],
-      zoom: 15
-    }, {
-      "title": "Ngambo",
-      latlng: [-6.1653329612873105, 39.19835239648819],
-      zoom: 14
-    }]
-  };
-
-  // Move the map to the right place
-  var map_start_location = [52.3697, 4.9044, 15, 16] // Amsterdam
 
   // leaflet-style URL hash pattern:
   // #[zoom],[lat],[lng]
@@ -108,16 +37,12 @@ map = (function() {
     map_start_location = map_start_location.map(Number);
   }
 
-
-  // Location List Control
-  var llist = new L.control.locationlist(locations);
-  map.addControl(llist);
-
-  // Sidebar Control
-  var sidebar = L.control.sidebar('sidebar', {
-    position: 'right'
-  }).addTo(map);
-
+  if (typeof locations != 'undefined') {
+    // Location List Control
+    var llist = new L.control.locationlist(locations);
+    map.addControl(llist);
+  }
+  
   <!-- This is needed in the interaction functions -->    
   window.sidebar = sidebar;
   window.layer = layer;
@@ -137,20 +62,6 @@ map = (function() {
 
   function postUpdate() {}
 
-  function startdates_legend() {
-    if (startdates_legend.injected === True) {
-      $('#legend').innerHTML = '';
-    };
-
-    var startdates = getStartDateArray();
-    var years = Object.keys(startdates);
-    $('#legend').append('<table>');
-    for (year of years) {
-      $('#legend').append('<tr><td>' + year + '</td><td><a style=\"background-color: ' + startdates[year] + ';display: block;\"></a><tr>');
-    }
-    $('#legend').append('</table>');
-    startdates_legend.injected = True;
-  };
 
   function long2tile(lon, zoom) {
     return (Math.floor((lon + 180) / 360 * Math.pow(2, zoom)));
@@ -296,9 +207,14 @@ map = (function() {
                 var url = '//'+items[0]+'.m.wikipedia.org/wiki/'+items[1];
               }
               $('#wikipedia').attr('src', url);
-            }
+              window.sidebar.enable('wikipediapane');
+            } else {
+              window.sidebar.disable('wikipediapane');
+            } 
           } else if (selection_info_label.parentNode != null) {
-            selection_info_table.parentNode.removeChild(selection_info_table);
+ //           selection_info_table.parentNode.removeChild(selection_info_table);
+ //s           window.sidebar.disable('wikipediapane');
+            //window.sidebar.disable('infopane');
           }
         } else if (selection_info_label.parentNode != null) {
           selection_info_label.parentNode.removeChild(selection_info_label);
@@ -323,7 +239,7 @@ map = (function() {
     layer.on('init', function() {
       addGUI();
       initFeatureSelection();
-    });
+      });
     layer.addTo(map);
   });
 

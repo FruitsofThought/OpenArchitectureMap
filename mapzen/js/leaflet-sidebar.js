@@ -10,13 +10,16 @@
 L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
     includes: L.Mixin.Events,
 
+    _id: '',
+    
     options: {
         position: 'left'
     },
 
     initialize: function (id, options) {
         var i, child;
-
+        this._id = id;
+        
         L.setOptions(this, options);
 
         // Find sidebar HTMLElement
@@ -57,6 +60,7 @@ L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
                     this._closeButtons.push(closeButtons[j]);
             }
         }
+        L.DomEvent.disableClickPropagation(this._sidebar);
     },
 
     /**
@@ -69,7 +73,10 @@ L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
         var i, child;
 
         this._map = map;
-
+        if (map.sidebarcontrols == null) {
+          map.sidebarcontrols = {};
+        }
+        map.sidebarcontrols[this._id] = this;
         for (i = this._tabitems.length - 1; i >= 0; i--) {
             child = this._tabitems[i];
             L.DomEvent
@@ -116,6 +123,7 @@ L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
      */
     open: function(id) {
         var i, child;
+         this.enable(id);
 
         // hide old active contents and show new content
         for (i = this._panes.length - 1; i >= 0; i--) {
@@ -161,6 +169,50 @@ L.Control.Sidebar = L.Control.extend(/** @lends L.Control.Sidebar.prototype */ {
         if (!L.DomUtil.hasClass(this._sidebar, 'collapsed')) {
             this.fire('closing');
             L.DomUtil.addClass(this._sidebar, 'collapsed');
+        }
+
+        return this;
+    },
+
+    /**
+     * Enable the sidebar (if necessary).
+     */
+    enable: function(id) {
+      var i, child;
+      // remove old active highlights and set new highlight
+        for (i = this._tabitems.length - 1; i >= 0; i--) {
+            child = this._tabitems[i];
+            if (child.querySelector('a').hash == '#' + id)
+//                L.DomUtil.addClass(child, 'enabled');
+                L.DomUtil.removeClass(child, 'disabled');
+//              console.print("tralala");
+  //          else if (L.DomUtil.hasClass(child, 'active'))
+  //              L.DomUtil.removeClass(child, 'disabled');
+        }
+
+        return this;
+    },
+
+        /**
+     * Enable the sidebar (if necessary).
+     */
+    disable: function(id) {
+      var i, child;
+      // remove old active highlights and set new highlight
+        for (i = this._tabitems.length - 1; i >= 0; i--) {
+            child = this._tabitems[i];
+            if (child.querySelector('a').hash == '#' + id)
+//                L.DomUtil.addClass(child, 'enabled');
+                L.DomUtil.addClass(child, 'disabled');
+//              console.print("tralala");
+  //          else if (L.DomUtil.hasClass(child, 'active'))
+  //              L.DomUtil.removeClass(child, 'disabled');
+        }
+
+        // close sidebar
+        if (!L.DomUtil.hasClass(this._sidebar, 'collapsed')) {
+//            this.fire('closing');
+//            L.DomUtil.addClass(this._sidebar, 'collapsed');
         }
 
         return this;

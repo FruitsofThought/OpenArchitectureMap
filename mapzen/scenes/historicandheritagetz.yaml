@@ -45,7 +45,7 @@ styles:
 sources:
     mapzen:
         type: TopoJSON
-        url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.topojson
+        url:  http://tz.tiles.mountbatten.nl:83/all/{z}/{x}/{y}.topojson
 
 layers:
     earth:
@@ -68,14 +68,6 @@ layers:
             polygons:
                 order: 1
                 color: '#666'
-        protectedarea:
-            filter:
-                kind: protected_area
-            draw:
-                heritageareas:
-                    interactive: true
-                    order: 1
-                    color: [.2, 1, 0, .08]
                 
     roads:
         data: { source: mapzen }

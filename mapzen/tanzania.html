@@ -10,7 +10,22 @@
   <link rel="stylesheet" href="css/leaflet-sidebar.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="js/chosen/chosen.css" />
-  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.maps.mountbatten.nl"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.mountbatten.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 35]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.mountbatten.net/piwik.php?idsite=35" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
 
     <!-- 3rd party libraries -->
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -109,19 +124,18 @@
     "buildingage": {
       "group": "Architecture",
       "name": "Building Age",
-      "file": "scenes/startdate.yaml",
-      "legendfunction": "startdates_legend", //returns a legend as html
+      "file": "scenes/startdatetz.yaml",
+      "legendfunction": "startdates_legendtz", //returns a legend as html
     },
     "architecturalstyles": {
-      "group": "Architecture in NL",
+      "group": "Architecture",
       "name": "Architectural Styles",
-      "file": "scenes/architecturalstyles.yaml",
+      "file": "scenes/architecturalstylestz.yaml",
     },
     "historicandheritage": {
      "group": "Work In Progress",
      "name": "Heritage & Historical",
-     "file": "scenes/historicandheritage.yaml",
-      "sources": {"mapzen": {"type": 'TopoJSON', "url": "http://tiles.mountbatten.nl/all/{z}/{x}/{y}.topojson" }},
+     "file": "scenes/historicandheritagetz.yaml",
     },
     "cinnabar": {
       "group": "Mapzen Demos",
@@ -144,7 +158,7 @@
       "file": "//cdn.rawgit.com/tangrams/refill-style/6e720243dfc93f2aa49d490e0676699edfe4aad7/refill-style.yaml",
     },
   };
-  var locations = {
+/*  var locations = {
     "locationsList": [{
       "title": "Amsterdam",
       latlng: [52.3697, 4.9044],
@@ -159,64 +173,28 @@
       zoom: 14
     }, {
       "title": "Rotterdam",
-      latlng: [51.9149, 4.4754],
+      latlng: [51.9176, 4.5066],
       zoom: 14
-    }, {
-      "title": "Den Haag",
-      latlng: [52.0840, 4.3210],
-      zoom: 13
     }, {
       "title": "Groningen",
       latlng: [53.2185, 6.5662],
       zoom: 14
     }, {
-      "title": "Enschede",
-      latlng: [52.2192, 6.8923],
-      zoom: 14
-    }, {
-      "title": "Almelo",
-      latlng: [52.3553, 6.6627],
-      zoom: 14
-    }, {
-      "title": "Uden",
-      latlng: [51.6611, 5.6284],
-      zoom: 14
-    }, {
-      "title": "Steenwijk",
-      latlng: [52.7893, 6.1134],
-      zoom: 14
-    }, {
-      "title": "Heerhugowaard",
-      latlng: [52.6537, 4.8049],
-      zoom: 13
-    }, {
       "title": "Terschelling",
       latlng: [53.3636, 5.2276],
       zoom: 15
+    }, {
+      "title": "Ngambo",
+      latlng: [-6.1653329612873105, 39.19835239648819],
+      zoom: 14
     }]
   };
-
+*/
   // Move the map to the right place
-  var map_start_location = [52.3697, 4.9044, 15, 16] // Amsterdam
+  var map_start_location = [-6.1653329612873105, 39.19835239648819, 15] // Ng'Ambo
 
   </script>
   <!-- All is loaded from here -->
   <script type="text/javascript" src="js/main.js"></script>
-    <!-- Piwik -->
-    <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(["setDomains", ["*.maps.mountbatten.nl"]]);
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="//piwik.mountbatten.net/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 35]);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <noscript><p><img src="//piwik.mountbatten.net/piwik.php?idsite=35" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
 </body>
 </html>

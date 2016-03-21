@@ -1,3 +1,15 @@
+  function startdates_legend() {
+    var html = '<table>';
+    var startdates = getStartDateArray();
+    var years = Object.keys(startdates);
+    for (year of years) {
+      html += '<tr><td>' + year + '</td><td><a style=\"background-color: ' + startdates[year] + ';display: block;\"></a><tr>';
+    }
+    html += '</table>';
+    return html;
+  };
+
+
 function startdatecolor(feature) {
   // Set the years array as static
   if ( typeof startdatecolor.startdates == 'undefined' ) {

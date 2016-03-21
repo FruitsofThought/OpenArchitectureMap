@@ -40,7 +40,7 @@ styles:
 sources:
     mapzen:
         type: TopoJSON
-        url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.topojson
+        url:  http://tz.tiles.mountbatten.nl:83/all/{z}/{x}/{y}.topojson
 
 layers:
     earth:
@@ -159,32 +159,6 @@ layers:
             draw:
                 polygons:
                     color: [0.169, 0.514, 0.729]
-        fromhereonitsNLhyper_modern:
-            filter: {"architecture_style": "neo_gothic" }
-            draw:
-                polygons:
-                    color: [0.169, 0.514, 0.729]
-        art_nouveau:
-            filter: {"architecture_style": "art_nouveau" }
-            draw:
-                polygons:
-                    color: [0.169, 0.514, 0.729]
-        modern:
-            filter: {"architecture_style": "modern" }
-            draw:
-                polygons:
-                    color: [0.169, 0.514, 0.729]
-        rijnllandse_gothic:
-            filter: {"architecture_style": "Rijnllandse Gothic" }
-            draw:
-                polygons:
-                    color: [0.169, 0.514, 0.729]
-        hyper_modern:
-            filter: {"architecture_style": "hyper_modern" }
-            draw:
-                polygons:
-                    color: [0.169, 0.514, 0.729]
-
         draw:
             polygons:
                 order: 50

@@ -11,6 +11,7 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
     includes: L.Mixin.Events,
 
     _currentStyle: '',
+ //   _this: ''; // this is not available during initialize
     
     options: {
         styles: {},
@@ -31,25 +32,32 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
           this._currentStyle = qs;
         }
       }
-        this._createSwitcher();
+      this._createSwitcher(this);
 
     },
     
   switchStyles: function(style, layer) {
-    if (this.options.styles[style]) {
+    if ((this.options.styles[style]) && (style != this._currentStyle)) {
       this._currentStyle = style;
+      document.title = this.options.styles[this._currentStyle].name + ' | The Other Maps Project';
+      
       //TODO: Remove the dependency on window
       window.layer.scene.reload(this.options.styles[this._currentStyle].file);
-      //TODO: handle this with inheritance, a hook or a callback
-    switch (this._currentStyle) {
-      case "startdates":
-        startdates_legend();
-        break;
-      case "architecturalstyles":
-        map.setView([-6.1653329612873105, 39.19835239648819, 14]);
-        break;
-    }
-
+      if (this.options.styles[this._currentStyle].sources != null) {
+        keys = Object.keys(this.options.styles[this._currentStyle].sources);
+        for (key of keys) {
+          source = this.options.styles[this._currentStyle].sources[key];
+          window.layer.scene.setDataSource(key, source);
+        }
+       window.layer.scene.requestRedraw();
+      }
+      if ((this.options.styles[style].legendfunction != null) && (window[this.options.styles[style].legendfunction] != null)){
+        $('#legend').html(window[this.options.styles[style].legendfunction]());
+        window.sidebar.enable('legendpane');
+      } else {
+        $('#legend').html('');
+        window.sidebar.disable('legendpane');
+      }
     }
   },
 
@@ -65,7 +73,7 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
     var keys = Object.keys(this.options.styles);
     var width = 0;
     var switcher = this;
-
+    var currentStyle = this.getCurrentStyle();
     var switcherEL = document.createElement('div');
     switcherEL.className = "control";
     var stylesUL = document.createElement('ul');
@@ -93,7 +101,8 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
       var styleGroup = styles[styleKey].group;
       if (styleGroup != curGroup) {
         if (groupUL.children.length > 0) {
-          stylesUL.appendChild(groupUL);
+//          stylesUL.appendChild(groupUL);
+          switcherEL.appendChild(groupUL);
           groupUL = document.createElement('ul');
         }
         //var groupLI = document.createElement('li');
@@ -107,8 +116,8 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
       var styleTxt = document.createTextNode(styles[styleKey].name);
       styleLI.appendChild(styleTxt);
       styleLI.className = 'style';
-//      styleLI.setAttribute("id", styleKey);
-      if(styleKey == this._currentStyle){
+      styleLI.setAttribute("id", styleKey);
+      if(styleKey == currentStyle){
         styleLI.classList.add('active');
       }
       styleLI.style.cssText = 'top: ' + ((index+1) * 48) + 'px';
@@ -118,9 +127,11 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
         styleLI.classList.add('active');
       });
       groupUL.appendChild(styleLI);
+      switcherEL.appendChild(groupUL);
     });
-    stylesUL.appendChild(groupUL);
-    switcherEL.appendChild(stylesUL);
+//    stylesUL.appendChild(groupUL);
+//    switcherEL.appendChild(stylesUL);
+    switcherEL.appendChild(groupUL);
     $('#sceneswitcher').append(switcherEL);
   }
 /*
@@ -164,6 +175,14 @@ L.Control.SceneSwitcher = L.Control.extend(/** @lends L.Control.SceneSwitcher.pr
         var i, child;
 
         this._map = map;
+      // Add the legend
+      if ((this.options.styles[this._currentStyle].legendfunction != null) && (window[this.options.styles[this._currentStyle].legendfunction] != null)){
+        $('#legend').html(window[this.options.styles[this._currentStyle].legendfunction]());
+        map.sidebarcontrols['sidebar'].enable('legendpane');
+      } else {
+        $('#legend').html('');
+        map.sidebarcontrols['sidebar'].disable('legendpane');
+      }
 
 /*        for (i = this._tabitems.length - 1; i >= 0; i--) {
             child = this._tabitems[i];

@@ -38,9 +38,9 @@ styles:
 
 sources:
     mapzen:
-        type: MVT
+        type: TopoJSON
         #url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.mvt
-        url:  http://nl.tiles.mountbatten.nl/all/{z}/{x}/{y}.mvt
+        url:  http://tiles.mountbatten.nl/all/{z}/{x}/{y}.topojson
         scripts: ['http://maps.mountbatten.nl/mapzen/scenes/startdate.js']
 
 layers:
@@ -114,3 +114,24 @@ layers:
                     size: 16px
                     visible: true
                     sprite: wikipedia
+        namelabels:
+            filter :
+                $zoom: 
+                    min: 16
+                    max: 17 
+            draw:
+                text:
+                    font:
+                        fill: black
+                        family: Helvetica
+                        size: 11px
+        housenumberlabels:
+            filter :
+                $zoom: { min: 18 }
+            draw:
+                text:
+                    text_source: "addr_housenumber"
+                    font:
+                        fill: white
+                        family: Helvetica
+                        size: 11px
